@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统计术语速击 Stats Term Blitz 통계 용어 블리츠</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .subtitle-ko {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #764ba2;
+            margin-bottom: 30px;
+        }
+
+        .rules-box {
+            background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .rules-title {
+            font-weight: bold;
+            font-size: 1.125rem;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .rules-list {
+            text-align: left;
+            list-style: none;
+        }
+
+        .rules-list li {
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 0.875rem;
+        }
+
+        .btn-start {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-start:active {
+            transform: scale(0.98);
+        }
+
+        /* 游戏界面 */
+        .game-container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .info-bar {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .info-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .lives-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .heart-icon {
+            width: 20px;
+            height: 20px;
+            color: #ef4444;
+        }
+
+        .lives {
+            display: flex;
+            gap: 4px;
+        }
+
+        .life {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #d1d5db;
+        }
+
+        .life.active {
+            background: #ef4444;
+        }
+
+        .score {
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .score-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .round-info {
+            text-align: right;
+        }
+
+        .round-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .round-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .info-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .streak {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            color: #f59e0b;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .timer.warning {
+            color: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .direction {
+            color: #6b7280;
+        }
+
+        /* 题目卡片 */
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .question-hint {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1f2937;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            color: #10b981;
+        }
+
+        .feedback.wrong {
+            color: #ef4444;
+        }
+
+        .feedback.timeout {
+            color: #f59e0b;
+        }
+
+        /* 选项网格 */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .option-btn {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .option-btn.correct {
+            background: #10b981;
+            color: white;
+        }
+
+        .option-btn.wrong {
+            background: #ef4444;
+            color: white;
+        }
+
+        .option-btn.faded {
+            opacity: 0.5;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        /* 游戏结束界面 */
+        .trophy-icon {
+            width: 64px;
+            height: 64px;
+            color: #fbbf24;
+            margin: 0 auto 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            background: linear-gradient(135deg, #eef2ff 0%, #faf5ff 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-value.indigo { color: #667eea; }
+        .stat-value.purple { color: #764ba2; }
+        .stat-value.pink { color: #f093fb; }
+        .stat-value.orange { color: #f59e0b; }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* 错题本 */
+        .wrong-terms-box {
+            background: #fef2f2;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .wrong-terms-title {
+            font-weight: bold;
+            font-size: 1.125rem;
+            color: #991b1b;
+            margin-bottom: 15px;
+        }
+
+        .wrong-terms-list {
+            max-height: 160px;
+            overflow-y: auto;
+        }
+
+        .wrong-term-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+        }
+
+        .wrong-term-item .en {
+            font-weight: 600;
+        }
+
+        .wrong-term-item .ko {
+            color: #764ba2;
+            margin: 0 8px;
+        }
+
+        .wrong-term-item .cn {
+            color: #6b7280;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.75rem;
+            }
+            .question-text {
+                font-size: 2rem;
+            }
+            .options-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 菜单界面 -->
+    <div id="menu" class="container">
+        <div class="card">
+            <h1 class="title">统计术语速击</h1>
+            <h2 class="subtitle">Stats Term Blitz</h2>
+            <h3 class="subtitle-ko">통계 용어 블리츠</h3>
+            
+            <div class="rules-box">
+                <div class="rules-title">游戏规则 Game Rules 게임 규칙</div>
+                <ul class="rules-list">
+                    <li>• 10秒内找到正确翻译 Find correct translation in 10s</li>
+                    <li>• 英韩轮换 English↔Korean alternating</li>
+                    <li>• 5条生命值 5 lives / 5개 생명</li>
+                    <li>• 共20轮 20 rounds total / 총 20라운드</li>
+                    <li>• 连击加分 Streak bonus / 연속 보너스</li>
+                </ul>
+            </div>
+            
+            <button class="btn-start" onclick="startGame()">开始游戏 START 시작</button>
+        </div>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div id="game" class="game-container hidden">
+        <div class="info-bar">
+            <div class="info-top">
+                <div class="lives-container">
+                    <svg class="heart-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                    </svg>
+                    <div class="lives" id="lives">
+                        <div class="life active"></div>
+                        <div class="life active"></div>
+                        <div class="life active"></div>
+                        <div class="life active"></div>
+                        <div class="life active"></div>
+                    </div>
+                </div>
+                
+                <div class="score">
+                    <div class="score-value" id="score">0</div>
+                    <div class="score-label">得分 Score</div>
+                </div>
+                
+                <div class="round-info">
+                    <div class="round-value" id="round">1/20</div>
+                    <div class="round-label">轮次 Round</div>
+                </div>
+            </div>
+            
+            <div class="info-bottom">
+                <div class="streak">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"/>
+                    </svg>
+                    <span>连击 x<span id="streak">0</span></span>
+                </div>
+                
+                <div class="timer" id="timer">10s</div>
+                
+                <div class="direction" id="direction">EN→KO</div>
+            </div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-hint" id="hint">找到对应的韩语 Find Korean 한국어를 찾으세요</div>
+            <div class="question-text" id="question">Number</div>
+            <div class="feedback hidden" id="feedback">正确！Correct! 정답!</div>
+        </div>
+        
+        <div class="options-grid" id="options"></div>
+    </div>
+
+    <!-- 游戏结束界面 -->
+    <div id="gameOver" class="container hidden">
+        <div class="card">
+            <svg class="trophy-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+            </svg>
+            <h2 class="title" style="font-size: 2rem;">游戏结束 Game Over 게임 종료</h2>
+            
+            <div class="stats-grid" id="stats"></div>
+            
+            <div id="wrongTermsBox" class="wrong-terms-box hidden">
+                <div class="wrong-terms-title">错题复习 Wrong Terms 오답 복습</div>
+                <div class="wrong-terms-list" id="wrongTermsList"></div>
+            </div>
+            
+            <button class="btn-start" onclick="startGame()">再玩一次 Play Again 다시 시작</button>
+        </div>
+    </div>
+
+    <script>
+        // 术语库
+        const termBank = [
+            { en: "Number", ko: "숫자", cn: "数字" },
+            { en: "Count", ko: "세다", cn: "计数" },
+            { en: "Total", ko: "합계", cn: "总数" },
+            { en: "Average", ko: "평균", cn: "平均" },
+            { en: "More", ko: "더 많은", cn: "更多" },
+            { en: "Less", ko: "더 적은", cn: "更少" },
+            { en: "High", ko: "높은", cn: "高" },
+            { en: "Low", ko: "낮은", cn: "低" },
+            { en: "Big", ko: "큰", cn: "大" },
+            { en: "Small", ko: "작은", cn: "小" },
+            { en: "Compare", ko: "비교하다", cn: "比较" },
+            { en: "Measure", ko: "측정하다", cn: "测量" },
+            { en: "Result", ko: "결과", cn: "结果" },
+            { en: "Difference", ko: "차이", cn: "差异" },
+            { en: "Same", ko: "같은", cn: "相同" },
+            { en: "Change", ko: "변화", cn: "变化" },
+            { en: "Increase", ko: "증가", cn: "增加" },
+            { en: "Decrease", ko: "감소", cn: "减少" },
+            { en: "Percent", ko: "퍼센트", cn: "百分比" },
+            { en: "Half", ko: "절반", cn: "一半" },
+            { en: "Double", ko: "두 배", cn: "双倍" },
+            { en: "Chart", ko: "차트", cn: "图表" },
+            { en: "Table", ko: "표", cn: "表格" },
+            { en: "Survey", ko: "설문조사", cn: "调查" },
+            { en: "Question", ko: "질문", cn: "问题" },
+            { en: "Answer", ko: "답", cn: "答案" },
+            { en: "Group", ko: "그룹", cn: "组" },
+            { en: "Trend", ko: "추세", cn: "趋势" },
+            { en: "Pattern", ko: "패턴", cn: "模式" },
+            { en: "Example", ko: "예시", cn: "例子" }
+        ];
+
+        // 游戏状态
+        let gameState = {
+            round: 1,
+            score: 0,
+            lives: 5,
+            streak: 0,
+            maxStreak: 0,
+            correctCount: 0,
+            usedTerms: [],
+            wrongTerms: [],
+            reactionTimes: [],
+            currentTerm: null,
+            isEnglishToKorean: true,
+            timeLeft: 10,
+            timer: null,
+            roundStartTime: 0,
+            clickedIndex: null
+        };
+
+        // 开始游戏
+        function startGame() {
+            // 重置状态
+            gameState = {
+                round: 1,
+                score: 0,
+                lives: 5,
+                streak: 0,
+                maxStreak: 0,
+                correctCount: 0,
+                usedTerms: [],
+                wrongTerms: [],
+                reactionTimes: [],
+                currentTerm: null,
+                isEnglishToKorean: true,
+                timeLeft: 10,
+                timer: null,
+                roundStartTime: 0,
+                clickedIndex: null
+            };
+
+            // 显示游戏界面
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('gameOver').classList.add('hidden');
+            document.getElementById('game').classList.remove('hidden');
+
+            // 生成第一轮
+            generateRound();
+        }
+
+        // 生成新一轮
+        function generateRound() {
+            gameState.timeLeft = 10;
+            gameState.clickedIndex = null;
+            gameState.roundStartTime = Date.now();
+            
+            // 隐藏反馈
+            document.getElementById('feedback').classList.add('hidden');
+
+            // 选择未使用的术语
+            const availableTerms = termBank.filter(t => !gameState.usedTerms.includes(t.en));
+            if (availableTerms.length === 0) {
+                endGame();
+                return;
+            }
+
+            const correct = availableTerms[Math.floor(Math.random() * availableTerms.length)];
+            gameState.currentTerm = correct;
+
+            // 生成5-6个选项
+            const numOptions = Math.floor(Math.random() * 2) + 5;
+            const wrongOptions = termBank
+                .filter(t => t.en !== correct.en)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, numOptions - 1);
+
+            const allOptions = [...wrongOptions, correct]
+                .sort(() => Math.random() - 0.5);
+
+            // 更新UI
+            updateUI();
+            displayQuestion();
+            displayOptions(allOptions);
+
+            // 开始倒计时
+            startTimer();
+        }
+
+        // 更新UI
+        function updateUI() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('round').textContent = `${gameState.round}/20`;
+            document.getElementById('streak').textContent = gameState.streak;
+            document.getElementById('direction').textContent = gameState.isEnglishToKorean ? 'EN→KO' : 'KO→EN';
+
+            // 更新生命值
+            const livesDiv = document.querySelectorAll('.life');
+            livesDiv.forEach((life, i) => {
+                if (i < gameState.lives) {
+                    life.classList.add('active');
+                } else {
+                    life.classList.remove('active');
+                }
+            });
+        }
+
+        // 显示题目
+        function displayQuestion() {
+            const questionText = gameState.isEnglishToKorean ? gameState.currentTerm.en : gameState.currentTerm.ko;
+            const hintText = gameState.isEnglishToKorean 
+                ? '找到对应的韩语 Find Korean 한국어를 찾으세요'
+                : '找到对应的英语 Find English 영어를 찾으세요';
+
+            document.getElementById('question').textContent = questionText;
+            document.getElementById('hint').textContent = hintText;
+        }
+
+        // 显示选项
+        function displayOptions(options) {
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+
+            options.forEach((term, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = gameState.isEnglishToKorean ? term.ko : term.en;
+                btn.onclick = () => handleClick(term, index);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        // 开始倒计时
+        function startTimer() {
+            if (gameState.timer) clearInterval(gameState.timer);
+
+            gameState.timer = setInterval(() => {
+                gameState.timeLeft--;
+                const timerDiv = document.getElementById('timer');
+                timerDiv.textContent = gameState.timeLeft + 's';
+
+                if (gameState.timeLeft <= 3) {
+                    timerDiv.classList.add('warning');
+                } else {
+                    timerDiv.classList.remove('warning');
+                }
+
+                if (gameState.timeLeft <= 0) {
+                    clearInterval(gameState.timer);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        // 处理超时
+        function handleTimeout() {
+            gameState.lives--;
+            gameState.streak = 0;
+            showFeedback('timeout', '时间到！Time\'s up! 시간 초과!');
+
+            setTimeout(() => {
+                if (gameState.lives <= 0) {
+                    endGame();
+                } else {
+                    nextRound();
+                }
+            }, 1500);
+        }
+
+        // 处理点击
+        function handleClick(term, index) {
+            if (gameState.clickedIndex !== null) return;
+
+            clearInterval(gameState.timer);
+            gameState.clickedIndex = index;
+
+            const reactionTime = (Date.now() - gameState.roundStartTime) / 1000;
+            const correctAnswer = gameState.isEnglishToKorean ? gameState.currentTerm.ko : gameState.currentTerm.en;
+            const selectedAnswer = gameState.isEnglishToKorean ? term.ko : term.en;
+            const isCorrect = selectedAnswer === correctAnswer;
+
+            // 更新按钮样式
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+                } else {
+                    btn.classList.add('faded');
+                }
+                btn.disabled = true;
+            });
+
+            if (isCorrect) {
+                gameState.score += 100 + (gameState.streak * 10);
+                gameState.correctCount++;
+                gameState.streak++;
+                gameState.maxStreak = Math.max(gameState.maxStreak, gameState.streak);
+                gameState.reactionTimes.push(reactionTime);
+                showFeedback('correct', '正确！Correct! 정답!');
+            } else {
+                gameState.lives--;
+                gameState.streak = 0;
+                gameState.wrongTerms.push(gameState.currentTerm);
+                showFeedback('wrong', '错误！Wrong! 틀렸어요!');
+
+                if (gameState.lives <= 0) {
+                    setTimeout(() => endGame(), 1500);
+                    return;
+                }
+            }
+
+            updateUI();
+
+            setTimeout(() => {
+                nextRound();
+            }, 1200);
+        }
+
+        // 显示反馈
+        function showFeedback(type, text) {
+            const feedbackDiv = document.getElementById('feedback');
+            feedbackDiv.textContent = text;
+            feedbackDiv.className = `feedback ${type}`;
+            feedbackDiv.classList.remove('hidden');
+        }
+
+        // 下一轮
+        function nextRound() {
+            gameState.usedTerms.push(gameState.currentTerm.en);
+
+            if (gameState.round >= 20) {
+                endGame();
+                return;
+            }
+
+            gameState.round++;
+            gameState.isEnglishToKorean = !gameState.isEnglishToKorean;
+
+            generateRound();
+        }
+
+        // 结束游戏
+        function endGame() {
+            clearInterval(gameState.timer);
+
+            // 计算统计数据
+            const accuracy = gameState.round > 1 
+                ? ((gameState.correctCount / (gameState.round - 1)) * 100).toFixed(1) 
+                : 0;
+            const avgReactionTime = gameState.reactionTimes.length > 0
+                ? (gameState.reactionTimes.reduce((a, b) => a + b, 0) / gameState.reactionTimes.length).toFixed(2)
+                : 0;
+
+            // 显示统计
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value indigo">${gameState.score}</div>
+                    <div class="stat-label">最终得分 Final Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value purple">${accuracy}%</div>
+                    <div class="stat-label">正确率 Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value pink">${gameState.maxStreak}</div>
+                    <div class="stat-label">最高连击 Max Streak</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value orange">${avgReactionTime}s</div>
+                    <div class="stat-label">平均反应 Avg Time</div>
+                </div>
+            `;
+
+            // 显示错题
+            if (gameState.wrongTerms.length > 0) {
+                const wrongBox = document.getElementById('wrongTermsBox');
+                const wrongList = document.getElementById('wrongTermsList');
+                wrongBox.classList.remove('hidden');
+                wrongList.innerHTML = gameState.wrongTerms.map(term => `
+                    <div class="wrong-term-item">
+                        <span class="en">${term.en}</span> →
+                        <span class="ko">${term.ko}</span>
+                        <span class="cn">(${term.cn})</span>
+                    </div>
+                `).join('');
+            }
+
+            // 显示游戏结束界面
+            document.getElementById('game').classList.add('hidden');
+            document.getElementById('gameOver').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
